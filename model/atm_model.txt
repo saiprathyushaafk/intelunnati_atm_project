@@ -1,0 +1,48 @@
++------------------+                +------------------+
+|                  |                |                  |
+|       IDLE       |                |   CARD_INSERTED  |
+|                  |                |                  |
++--------+---------+                +---------+--------+
+         |                                    |
+         |                                    |
+         | card_in                            | pin_entry
+         v                                    v
++------------------+                +------------------+
+|                  |                |                  |
+|   PIN_ENTERED    |                | BALANCE_INQUIRY  |
+|                  |                |                  |
++--------+---------+                +---------+--------+
+         |                                    |
+         |                                    |
+         | balance_inquiry                    | withdrawal
+         v                                    v
++------------------+                +------------------+
+|                  |                |                  |
+|   WITHDRAWAL     |                |    DEPOSIT       |
+|                  |                |                  |
++--------+---------+                +---------+--------+
+         |                                    |
+         |                                    |
+         |                                    |
+         +------------------------------------+
+
+			
+The state model consists of six states:
+
+IDLE: The initial state of the ATM module. It waits for a card to be inserted (card_in) to transition to the CARD_INSERTED state.
+
+CARD_INSERTED: The state where a card is inserted, and it waits for the PIN to be entered (pin_entry). It can transition to the PIN_ENTERED state, BALANCE_INQUIRY state, WITHDRAWAL state, or DEPOSIT state based on different conditions.
+
+PIN_ENTERED: The state where the PIN is entered. It can transition to the BALANCE_INQUIRY state, WITHDRAWAL state, or DEPOSIT state based on different conditions.
+
+BALANCE_INQUIRY: The state where a balance inquiry is requested (balance_inquiry). It transitions back to the IDLE state.
+
+WITHDRAWAL: The state where a withdrawal is requested (withdrawal). It transitions back to the IDLE state.
+
+DEPOSIT: The state where a deposit is requested (deposit). It transitions back to the IDLE state.
+
+
+
+Note that the transitions are triggered by specific input signals and conditions specified in the code. The ready and error outputs are updated based on the current state, and the account balance and selected language are updated according to the input signals.
+
+The state model helps visualize the different states and transitions within the modatm module, aiding in understanding the module's behavior and potential corner cases that need to be tested.			
